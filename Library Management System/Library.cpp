@@ -33,12 +33,40 @@ public:
 
 Books book;
 
+bool isBookIdExists(int id) {
+    ifstream file("BookDetails.txt", ios::binary);
+    if (!file) {
+        cout << "File not found!" << endl;
+        return false;
+    }
+
+    Books tempBook;
+    while (file.read(reinterpret_cast<char*>(&tempBook), sizeof(tempBook))) {
+        if (tempBook.id == id) {
+            return true;
+        }
+    }
+
+    file.close();
+    return false; 
+}
+
 void addBook() {
     system("cls");
     book.getBooks();
+
+    if (isBookIdExists(book.id)) {
+        cout << "Book with ID " << book.id << " already exists!" << endl;
+        return;
+    }
+    ifstream temp("BookDetails.txt", ios::binary);
     ofstream file("BookDetails.txt", ios::binary | ios::app);
     if (file) {
         file.write(reinterpret_cast<char*>(&book), sizeof(book));
+
+        while(temp.read(reinterpret_cast<char*>(&book), sizeof(book))){
+            if(book.id)
+        }
 
         cout << "\nBook successfully added!" << endl;
     } else {
