@@ -64,10 +64,6 @@ void addBook() {
     if (file) {
         file.write(reinterpret_cast<char*>(&book), sizeof(book));
 
-        while(temp.read(reinterpret_cast<char*>(&book), sizeof(book))){
-            if(book.id)
-        }
-
         cout << "\nBook successfully added!" << endl;
     } else {
         cout << "File doesn't exist!" << endl;
